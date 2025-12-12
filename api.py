@@ -35,6 +35,10 @@ class QueryRequest(BaseModel):
     query: str = None
     top_k: int = 5
     tone: str = "professional"
+    
+@app.get("/")
+def root():
+    return {"message": "Backend up and running!", "status": "ok"}
 
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...), meta: str = Form(None)):

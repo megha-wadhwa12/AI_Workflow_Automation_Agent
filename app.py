@@ -12,7 +12,8 @@ import requests
 import time
 from typing import Optional
 
-API_BASE = "https://ai-workflow-automation-agent.onrender.com"
+import os
+API_BASE = os.getenv("API_BASE", "https://ai-workflow-automation-agent.onrender.com")
 
 st.set_page_config(page_title="AI Workflow Agent (Demo)", layout="wide")
 
