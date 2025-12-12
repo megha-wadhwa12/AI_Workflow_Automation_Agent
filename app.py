@@ -31,7 +31,12 @@ with st.sidebar.form("upload_form"):
 
 if st.sidebar.button("Build Index"):
     resp = requests.post(f"{API_BASE}/build_index")
-    st.sidebar.write(resp.json())
+    try:
+        st.sidebar.write(resp.json())
+    except:
+        st.sidebar.error("Failed to parse JSON. Raw response:")
+        st.sidebar.write(resp.text)
+
 
 st.sidebar.markdown("---")
 st.sidebar.write("Status:")
