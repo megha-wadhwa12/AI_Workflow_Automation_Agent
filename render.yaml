@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ai-workflow-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api:app --host 0.0.0.0 --port 10000
+    plan: free
+
+  - type: web
+    name: ai-workflow-frontend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.address=0.0.0.0 --server.port=10000
+    plan: free
+    envVars:
+      - key: API_BASE
+        value: https://ai-workflow-backend.onrender.com
