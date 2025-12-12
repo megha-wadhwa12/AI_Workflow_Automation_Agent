@@ -86,7 +86,7 @@ Create a `.env` file or set the Render environment variable:
 
 ```env
 API_BASE=https://your-backend-url.onrender.com
-
+```
 
 ## 🔮 Future Enhancements
 
