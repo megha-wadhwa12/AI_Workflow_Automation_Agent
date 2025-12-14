@@ -7,7 +7,7 @@ Optimized Agent Logic (Render-friendly):
 """
 
 import numpy as np
-from rag_engine import RAGEngine
+from backend.rag_engine import RAGEngine
 
 # ---- Lazy import transformers to avoid Render RAM spike ----
 try:

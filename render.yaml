@@ -1,17 +1,32 @@
 services:
+  # =========================
+  # BACKEND (FastAPI)
+  # =========================
   - type: web
     name: ai-workflow-backend
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn api:app --host 0.0.0.0 --port 10000
     plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api:app --host 0.0.0.0 --port $PORT --workers 1
+    envVars:
+      - key: HF_HOME
+        value: /tmp/huggingface
+      - key: TRANSFORMERS_CACHE
+        value: /tmp/huggingface
+      - key: HF_DATASETS_CACHE
+        value: /tmp/huggingface
 
+  # =========================
+  # FRONTEND (Streamlit)
+  # =========================
   - type: web
     name: ai-workflow-frontend
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run app.py --server.address=0.0.0.0 --server.port=10000
     plan: free
+    rootDir: frontend
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.address=0.0.0.0 --server.port $PORT
     envVars:
       - key: API_BASE
         value: https://ai-workflow-backend.onrender.com

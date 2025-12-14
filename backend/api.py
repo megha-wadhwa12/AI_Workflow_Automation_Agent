@@ -10,8 +10,8 @@ FastAPI wrapper for the agent. Endpoints:
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from rag_engine import RAGEngine
-from agent import SimpleAgent
+from backend.rag_engine import RAGEngine
+from backend.agent import SimpleAgent
 import uvicorn
 import io
 
@@ -35,6 +35,15 @@ class QueryRequest(BaseModel):
     query: str = None
     top_k: int = 5
     tone: str = "professional"
+    
+@app.get("/")
+def root():
+    return {
+        "ok": True,
+        "service": "AI Workflow Backend",
+        "status": "running",
+        "message": "Backend is up and reachable 🚀"
+    }
 
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...), meta: str = Form(None)):
